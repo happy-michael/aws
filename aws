@@ -1,503 +1,207 @@
-Plz ask 1 Q at a time in random order
-If I enter 1 show the A and continue asking 1 Q at a time
-If I enter 2 show the A repeat the Q at a later time and continue asking 1 Q at a time
-
-1
-Q: Define Storage Gateway.  What are the 4 types of gateways.  Define them
-A: 
-Storage Gateway - provides virtually unlimited cloud storage using hybrid cloud storage service
-3 types of Storage Gateways
-File Gateway - provides a file interface to S3 that lets you store and retrieve objects through standard file protocols like NFS and SMB
-Tape Gateway - provides a virtual tape library interface that lets you back up data to S3 using existing tape-based backup applications
-FSX Gateway - provides on-premises applications with low-latency access to fully managed file systems in AWS FSx
-Volume Gateway - provides block storage volumes that can be mounted as iSCSI devices by your on-premises applications
-
-Q: What does Redis provide?
-A:
-* Multi AZ 
-* Read replicas
-* Persistent
-* Backup and restore
-* Data structures & key value pairs
-
-Q: What does Memcache provide?
-A: 
-* Sharding - Multi node for partitioning of data
-* Non persistant (all data lost if node fails)
-* Serverless 
-* Kay value pair 
-* Multi thread architecture
-
-Q: Define Comprehend, Connect,  Lex,  Polly, Recognition, Transcribe, Translate
-Comprehend - uses machine learning to analyze text documents
-Connect - uses a cloud-based contact center platform to enable businesses to provide customer service at any scale
-Lex - uses conversational AI technologies to build chatbots and voice assistants for applications and services
-Polly - Convert text to speech
-Recognition - Identifies people & objects on images and videos using ML
-Transcribe - Convert speech to text
-Translate - Language Translation
-
-Q: Define Signed URLs
-A: 1 URL per file (giving someone 1 time access to download a file)
-
-Q: Define Signed Cookies
-A: 1 cookie for multiple files (giving user access to premium content)
-
-Migration/Transfer
-Q: AWS Application Migration Service
-A: an execution tool that helps migrate servers (on premises & other cloud service providers) to EC2 instances
-
-Q: AWS Application Discovery Service 
-A: a planning tool that helps migrate projects to AWS by gathering information about their on-premises data centers
-
- Q: AWS Transfer Family
-A: provides fully managed file transfer support into and out of Amazon S3
-
-Q: Define AWS DataSync
-A:  data transfer service that simplifies, automates, and accelerates moving data between on-premises storage systems and AWS storage services, or between different AWS storage services.
-
-QL Define Database Migration Service
-
-Q: When do you use Snowmombile versus Snowball Edge
-A:
-Use Snowmombile migrates large datasets of 10PB or more in a singleo location
-Use Snowball Edge for datasets less than 10PB or distributed in multiple location
-
-
-Monitoring
-Q: Define the terms below
-CloudTrail Management Events
-CloudTrail Data Events
-CloudTrail Insights
-
-How to get data in to Cloudwatch?
-CloudWatch Unified Agent: (Recommended, collects logs (provides context)) An AWS tool that collects metrics, logs, and traces (analyze the path of requests as they travel through various microservices and components in a distributed application architecture) from EC2 instances and on-premises servers, providing enhanced monitoring capabilities.
-CloudWatch Logs Agent: (Depreciated, collects logs and metrics (provides numerical values)) AWS component designed solely for collecting and streaming log files from servers to CloudWatch Logs.
-SDK (Software Development Kit): A collection of software tools, libraries, documentation, and code samples that developers use to create applications for specific platforms or services.
-
-What can you send data to in Cloudwatch logs?
-Elastic Beanstalk: collection of logs from applications
-ECS: collection from containers
-Lambda: collection from function logs
-VPC Flow Logs: VPC specific log
-API Gateway: 
-CloudTrail: based on filer	
-EC2 instance: can install Cloudwatch agents
-Route 53: Log DNS Queries
-
-S3
-Q: Define Object Ownership, Bucket Owner Preferred, Object Writer, ACLs disabled, and ACLs enabled ACLs disabled (recommended)
-ACLs disabled (recommended) - All objects in this bucket are owned by this account. Access to this bucket and its objects is specified using only policies.
-ACLs enabled - Objects in this bucket can be owned by other AWS accounts. Access to this bucket and its objects can be specified using ACLs.
-Object Ownership - Control ownership of objects written to this bucket from other AWS accounts and the use of access control lists (ACLs). Object ownership determines who can specify access to objects.  There are two different type of Object Ownership, Bucket owner preferred, and object writer
-Bucket owner preferred
-If new objects written to this bucket specify the bucket-owner-full-control canned ACL, they are owned by the bucket owner. Otherwise, they are owned by the object writer.
-Object writer
-The object writer remains the object owner.
-S3 ACL & Bucket Policies are not the same thing
-
-Money
-Budget Manager
-
-Cost Explorer
+Storage & Data Transfer
 
-Other
-CDK
+Storage Gateway: Hybrid cloud storage service with 3 types:
 
-Q: When to use a Network Load Balencer in front of an Application Load Balencar
+File Gateway: File interface to S3 using NFS/SMB
+Tape Gateway: Virtual tape library interface for S3
+FSX Gateway: Low-latency access to AWS FSx
+Volume Gateway: Block storage volumes mountable as iSCSI devices
 
-Q: When does to use vpc flow logs vs nlb in front of an alb?
-A: use vpc flow logs to record ip addresses on aws, and nlb allows you to record ip addresses on aws and the app
 
-2
-Q: Define Service control policies (SCPs)
-A: set the maximum permissions (permissions boundary) that a member can set for an organization
+Data Transfer:
 
-A: 
-CloudTrail Management Events: Records administrative actions on AWS resources (like creating IAM users S3 bucket, or EC2 instances).
-CloudTrail Data Events: Tracks resource-level operations (like S3 object access & insertion, Lambda invocations, S3 object-level API activity on AWS Outposts).
-CloudTrail Insights: Detects unusual API activity patterns in your AWS account.
+AWS Application Migration Service: Execution tool for migrating servers to EC2
+AWS Application Discovery Service: Planning tool for migration projects
+AWS Transfer Family: Managed file transfer for Amazon S3
+AWS DataSync: Automated data transfer between on-premises and AWS storage
+Snowmobile: For datasets of 10PB+ in a single location
+Snowball Edge: For datasets less than 10PB or distributed across locations
 
-Q: when do you put a network load balencer in front of an application load balencer
-A: 
-1. Static IP addresses: When you need fixed, static IP addresses for your application. NLBs provide static IP addresses (one per Availability Zone), while ALBs use dynamic IP addresses. This is useful for allowlisting with external partners who require fixed IPs.
-2. TLS termination at different layers: When you want to perform TLS termination at the network layer (NLB) but still need application layer (L7) routing capabilities of the ALB.
-3. Cross-region load balancing: When implementing a global load balancing strategy that requires both network-level routing and application-aware routing.
-4. DDoS protection: When you want to add an extra layer of protection. The NLB can absorb some types of network-level DDoS attacks while the ALB handles application-specific traffic.
-5. Preserving client IP addresses: When you need to preserve the original client IP address through to your applications. NLBs preserve the client's IP address, which can then be forwarded to the ALB.
-6. Private Link integration: When using AWS Private Link services, which require NLB, but you still want the routing capabilities of an ALB.
-7. Protocol support: When you need to support both TCP/UDP protocols (supported by NLB) and HTTP/HTTPS with content-based routing (supported by ALB).
 
 
+Databases & Caching
 
-Q: Define AWS OpsWorks
-A: AWS OpsWorks is a configuration management service that helps you configure and operate applications in a cloud enterprise by using Puppet or Chef
+Redis:
 
-Q: Amazon Athena
-A: an interactive query service that makes it easy to analyze data directly in Amazon S3 using standard SQL
+Multi-AZ, Read replicas, Persistent, Backup/restore, Data structures & key-value pairs
 
-Q: When do you choose Kinesis Data Streams vs Choose Kinesis Firehose?
 
-A: Choose Kinesis Data Streams when you need real-time custom processing with sub-second latency and multiple consumers
-Choose Kinesis Firehose when you simply need to load streaming data into destinations like S3, Redshift, Elasticsearch, or third-party services with automatic scaling and minimal management.
-Kinesis Firehose cannot write to a dynamodb table
+Memcache:
 
-Q: Define Guard Duty
-A: monitors AWS accounts and workloads for malicious activity
+Sharding, Non-persistent, Serverless, Key-value pair, Multi-thread architecture
 
-Q: Define AWS System Manager 
-A: secure management and patching solution for AWS resources and in multicloud and hybrid environments
 
-Define rehosting and replaforming
-Rehost - application cloud migration w/o major configuration changes
-Replatform -  application cloud migration w/ aws services integration
+DynamoDB:
 
- Q: Define Route 53 Resolver
-A: Resolve DNS queries in your Amazon VPC and on-premises network.
+Query: Searches within specific partition key (efficient)
+Scan: Searches through entire table (less efficient)
 
 
-* All features – This feature set is the preferred way to work with AWS Organizations, and it includes Consolidating Billing features. When you create an organization, enabling all features is the default. With all features enabled, you can use the advanced account xmanagement features available in AWS Organizations such as integration with supported AWS services and organization management policies. Policies in AWS Organizations enable you to apply additional types of management to the AWS accounts in your organization. You can use policies when all features are enabled in your organization. Service control policies (SCPs) offer central control over the maximum available permissions for all of the accounts in your organization.
-* Consolidated Billing features – All organizations support this subset of features, which provides basic management tools that you can use to centrally manage the accounts in your organization. You cannot leverage SCPs in this feature mode.
 
-
-
-G3
-Use Amazon S3 or DynamoDB public IP addresses
-Do not allow access to resources from other AWS Region then the region the resource was created in
+S3 & Content Delivery
 
-Q: When do you use Gateway endpoints, Gateway VPC endpoints?
-A: Create a gateway endpoint to send traffic to Amazon S3 or DynamoDB using private IP addresses. You route traffic from your VPC to the gateway endpoint using route tables. Gateway endpoints do not enable AWS PrivateLink.
+S3 Access Control:
 
-Q: When do you use Interface endpoints, Interface VPC endpoints?
-A: Create an interface endpoint to send traffic to endpoint services that use a Network Load Balancer to distribute traffic. Traffic destined for the endpoint service is resolved using DNS.
+Object Ownership: Controls object ownership from other AWS accounts
+Bucket Owner Preferred: Objects with bucket-owner-full-control ACL owned by bucket owner
+Object Writer: Original writer remains object owner
+ACLs Disabled: All objects owned by account, access via policies only
+ACLs Enabled: Objects can be owned by other accounts, access via ACLs
 
-Q: When do you use GatewayLoadBalancer endpoints, GatewayLoadBalancer VPC endpoints?
-A: Create a Gateway Load Balancer endpoint to send traffic to a fleet of virtual appliances using private IP addresses. You route traffic from your VPC to the Gateway Load Balancer endpoint using route tables. The Gateway Load Balancer distributes traffic to the virtual appliances and can scale with demand.
- 
 
-Q: In DynamoDB, what's the difference between Query and Scan operations?
-A: Query: Searches only within a specific partition key, making it more efficient and cost-effective
-A: Scan: Searches through every item in the table, which is less efficient and more expensive
+Content Delivery:
 
-Q: Define Event Bridge, Event bridge pipes, Event bridge Schedular
-A:
-* Create rules to route events to AWS services
-* Schedule automated actions
-* Archive feature allows you to store events for a specified period and replay them later
-* Replay - recover from failures, & rebuild an applications state using historical data
-* Takes care of provisioning, patching, and managing servers
-* Respond to operational changes in your AWS resources
-* Works with majority of AWS services
-    * Trigger Lambda functions
-    * Send notifications through SNS
-* Eventbridge pipes simplifies integration between producers and consumers (_
-* Eventbridge Schedular lets you create trigger and manage millions of tasks on a schedule
+Signed URLs: One URL per file for one-time access
+Signed Cookies: One cookie for multiple files (premium content access)
+Global Accelerator: Network service improving global application performance
 
-Please remind me the following before asking the previous question
-When a downstream service fails (like a Lambda function or database), you can fix the issue and then replay the missed events to catch up on all the processing that should have happened. For example, if your order processing system went down for an hour, you could replay all customer order events from that period to ensure no orders were lost.
-It's also helpful when deploying new features or applications that need historical data. Instead of waiting for new events to arrive, you can replay past events to immediately populate your new system with real data. For instance, if you add a new analytics service, you could replay the last month of user activity events to build up your initial analytics dashboard
-
-
-Q: What is the primary purpose of AWS Systems Manager Parameter Store?
-A:
-* Store configuration data and secrets (like passwords, database strings, API keys)
-* Centrally manage configuration settings
-* Store parameters as plain text or encrypted values
-* Track versions of parameters
-* Reference these parameters in your applications and scripts
-
-
-Q: What's the difference between AWS Backup and regular snapshots in AWS?
-A:
-Snapshots are:
-* Individual point-in-time copies of specific resources (like EC2, EBS, RDS)
-* Managed manually or through individual service settings
-AWS Backup:
-* Centralized backup service across multiple AWS services (CBSAMAS)
-* Automated backup scheduling 
-* Centralized management of backup policies (CMOBP)
-* Consistent backup policies across services (CBPAS)
-* Easier to manage compliance requirements (ETMCR)
-* Can backup EFS, DynamoDB, EC2, EBS, RDS, Aurora, Storage Gateway
-
-
-Q: : In AWS CloudWatch, what's the difference between a metric filter and a metric?
-A: 
-* A metric is a variable you monitor (like CPU usage, network traffic, etc.)
-* A metric filter is used to extract values from CloudWatch Logs and convert them into numerical metrics that you can graph or set alarms on
-
-Q: When using AWS Lambda, what is a cold start and why does it matter?
-A: A cold start in AWS Lambda refers to the initialization process that happens when a new Lambda container needs to be created. 
-This process includes:
-Set up a new container
-Load the function code
-Initialize the runtime
-Run your initialization code
-
-Q: Define VPC peering 
-A: connection is a networking connection between two subnets or VPCs that enables you to route traffic between them using private IPv4 addresses or IPv6 addresses
-
-Q: Define VPC sharing 
-A: (part of Resource Access Manager) allows multiple AWS accounts to create their application resources.
-Including EC2, RDS, Redshift, Lambda.  To do this, VPC (owner) shares one or more subnets with other accounts (participants) that belong to the same AWS Organizations
-
-Q: When to use Private Virtual Interface vs Public Virtual Interface vs Transit Virtual Interface
-A:
-* Public VIF - using a public ip address to connect to Public AWS endpoint (S3 buckets, EC2 service, and AWS …) 
-* Private VIF - using a private ip address to connect to resources inside the VPC (EC2 instance, ALB,…) 
-* Transit VIF - allows you to connect to multiple VPCs across different regions through a Transit Gateway
-
-
-Q: What's the difference between an EBS snapshot and an AMI?
-A:
-EBS Snapshot:
-* Point-in-time backup of just the data on an EBS volume
-* Can be used to create new EBS volumes
-* Only contains the data/storage portion
-AMI (Amazon Machine Image):
-* Complete backup of an EC2 instance
-* Includes the operating system, data, and all configurations
-* Can be used to launch new EC2 instances
-* Contains both the root volume and any additional EBS volumes
-* Think of it as a "template" for creating new servers
-
-
-Q When to use Virtual Private Gateway vs Internet Gateway:
-A:
-* Choose a Virtual Private Gateway when you need private, encrypted communication with your on-premises network,
-* choose an Internet Gateway when you need to allow your VPC resources to communicate with the public internet.
-
-￼
-
-Security Groups (Stateful) - When you allow an inbound connection, the corresponding return traffic is automatically allowed out, regardless of outbound rules
-Network ACLs (Stateless) - Each packet is evaluated independently against rules in both directions
-
-
-——————————————————————————————
-
-
-Q: What's the difference between an Application Load Balancer (ALB) and a Network Load Balancer (NLB)?
-A:
-Application Load Balancer (ALB):
-* Layer 7 (Application layer)
-* Handles HTTP/HTTPS traffic
-* Can route based on content (URL path, host headers)
-* Best for web applications
-* Slower than NLB but more features
-Network Load Balancer (NLB):
-* Layer 4 (Transport layer)
-* Handles TCP/UDP/TLS traffic
-* Routes based on IP protocol data
-* Best for extreme performance needs or non-HTTP/S protocols
-* Ultra-low latency
-* Static IP addresses for your load balancer
-
-Q: What's the difference between Amazon SQS Standard and FIFO queues?
-A:
-SQS Standard:
-* Unlimited throughput
-* At-least-once delivery (might deliver same message multiple times)
-* Best-effort ordering (as you mentioned, messages can be out of order)
-* Usually used for high-throughput applications where order isn't critical
-SQS FIFO:
-* First-In-First-Out delivery (as you mentioned)
-* Exactly-once processing
-* Limited to 300 messages per second (3000 with batching)
-* Messages processed and delivered in strict order
-* Support for message groups
-* Usually used when order of operations is important
-
-Q: What's the difference between AWS Direct Connect and VPN connections?
-AWS Direct Connect:
-* Physical dedicated private connection to AWS
-* Consistent network performance (no internet dependencies)
-* Higher bandwidth options (1Gbps to 100Gbps)
-* More expensive
-* Takes weeks/months to set up
-* Better for large-scale, consistent data transfer
-VPN Connection:
-* Encrypted connection over the public internet
-* Performance can vary (depends on internet conditions)
-* Lower bandwidth
-* Less expensive
-* Can be set up in minutes
-* Good for smaller scale or backup connections
-
-
-Q: What's the difference between AWS Aurora Global Database and Aurora Read Replicas s, and Aurora Multi AZ??
-Aurora Global Database:
-* Designed for global applications needing low latency reads across regions
-* Primary region for write, secondary regions for read-only (with < 1 second replication lag)
-* Can promote secondary region during disasters
-Aurora Read Replicas:
-* Used for:
-    * Scaling read operations
-    * Higher availability
-    * Disaster recovery
-* Can be in same or different regions, up to 15 read replicas
-* Asynchronies
-Aurora Multi AZ:
-* Used for:
-    * High availability within a region
-    * Automatic failover
-    * Zero data loss during failover
-* Primary instance in one AZ, standby instance in different AZ
-* Synchronies
-
-Q: What's the purpose of AWS Step Functions?
-AWS Step Functions is a serverless orchestration service that lets you:
-* Coordinate multiple AWS services into workflows
-* Create workflows using visual interface
-* Automatically handle errors and retries
-* Track each step of your application
-* Control branching logic and parallel execution
-Common uses include:
-* Orchestrating Lambda functions in sequence
-* Building multi-step data processing pipelines
-* Creating complex approval workflows
-* Coordinating microservices
-
-Q: What's the difference between Amazon SNS and Amazon SQS in terms of message delivery?
-A:
-SNS:
-* Push-based messaging (actively pushes to subscribers)
-* One message, multiple receivers (pub/sub model)
-* Can send to multiple types of endpoints:
-    * SQS queues
-    * Lambda functions
-    * HTTP/S endpoints
-    * Mobile push notifications
-    * Email
-* Messages are not persisted (lost if not delivered)
+
+
+AI & Machine Learning Services
+
+Comprehend: Machine learning for text document analysis
+Connect: Cloud-based contact center platform
+Lex: Conversational AI for chatbots and voice assistants
+Polly: Text-to-speech conversion
+Recognition: ML-based identification of people/objects in images/videos
+Transcribe: Speech-to-text conversion
+Translate: Language translation
+
+Monitoring & Management
+
+CloudTrail:
+
+Management Events: Records administrative actions
+Data Events: Tracks resource-level operations
+Insights: Detects unusual API activity patterns
+
+
+CloudWatch:
+
+CloudWatch Unified Agent: Collects metrics, logs, and traces
+CloudWatch Logs Agent: Collects and streams log files
+Data Sources: Elastic Beanstalk, ECS, Lambda, VPC Flow Logs, API Gateway, CloudTrail, EC2, Route 53
+
+
+Management Tools:
+
+AWS OpsWorks: Configuration management using Puppet/Chef
+AWS Systems Manager: Secure management and patching solution
+Parameter Store: Centralized storage for configuration data and secrets
+AWS Config: Auditing and compliance recording
+AWS Control Tower: Automated setup of secure multi-account environments
+
+
+
+Security & Compliance
+
+Network Security:
+
+Security Groups: Stateful - return traffic automatically allowed
+Network ACLs: Stateless - each packet evaluated independently
+WAF Logs: Sent to CloudWatch Logs, S3, Kinesis Data Firehose
+
+
+Identity & Access:
+
+Service Control Policies (SCPs): Maximum permissions boundaries for organization
+Guard Duty: Monitors for malicious activity
+Active Directory: Microsoft directory service for authentication
+
+
+
+Networking
+
+VPC Connectivity:
+
+VPC Peering: Connection between two VPCs using private IP addresses
+VPC Sharing: Allows multiple accounts to create resources in shared subnets
+Virtual Private Gateway: For private, encrypted on-premises communication
+Internet Gateway: For VPC resources to communicate with public internet
+Direct Connect: Physical dedicated private connection to AWS
+VPN: Encrypted connection over public internet
+
+
+VPC Endpoints:
+
+Gateway Endpoints: For S3/DynamoDB using private IPs
+Interface Endpoints: For endpoint services using Network Load Balancer
+Gateway Load Balancer Endpoints: For virtual appliance fleets using private IPs
+
+
+Direct Connect Interfaces:
+
+Public VIF: Connect to public AWS endpoints using public IP
+Private VIF: Connect to VPC resources using private IP
+Transit VIF: Connect to multiple VPCs across regions via Transit Gateway
+
+
+Load Balancing:
+
+Application Load Balancer (ALB): Layer 7, HTTP/HTTPS traffic, content-based routing
+Network Load Balancer (NLB): Layer 4, TCP/UDP/TLS traffic, extreme performance
+
+
+
+Compute & Containers
+
+EC2 Related:
+
+EBS Snapshot: Point-in-time backup of EBS volume data
+AMI: Complete backup of EC2 instance (OS, data, configurations)
+Auto Scaling: Creates new scaling activity to replace unhealthy instances
+
+
+Migration Strategies:
+
+Rehosting: Application migration without major configuration changes
+Replatforming: Application migration with AWS services integration
+
+
+
+Message & Event Services
+
 SQS:
-* Pull-based messaging (consumers poll for messages)
-* One message, one receiver (queue model)
-* Messages persist until processed
-* Messages can be processed later
-* Consumers must actively retrieve messages
 
- Define WAF Logs
-A: sent to Amazon CloudWatch Logs, Amazon Simple Storage Service, and Amazon Kinesis Data Firehose. Amazon CloudTrail is not a valid 
-
-Q: Define Global Accelerator
-A: networking service that helps you improve the availability and performance of the applications that you offer to your global user
+Standard: Unlimited throughput, at-least-once delivery, best-effort ordering
+FIFO: First-In-First-Out, exactly-once processing, limited throughput
+Visibility Timeout: Prevents message duplication and race conditions
 
 
-Q: Define AWS Config
-A: 
-Helps with auditing & recording compliance.  
-Helps record configuration and changes over time.
-AWS Config Rules does not prevent actions from happening (no deny)
-You can receive (SNS notifications) for any changes
-AWS Config is a per region service
-Can be aggregated across regions & accounts
+SNS: Push-based messaging to multiple receivers (pub/sub model)
+Event Services:
 
-
-Q: When can AWS config be used?
-A: 
-* Is there unrestricted SSH access to my security buckets
-* Do my buckets have any public access?
-* How has my ALB configuration change over time?
-
-
-Q: Define AWS Outposts
-A:  AWS infrastructure, services, and tools to on-premises locations 
-Q: When to use Budget vs Cost Explorer A: AWS Budgets:
-* For setting proactive cost controls and alerts
-* When you need to plan and track spending against targets
-* To receive notifications before exceeding thresholds
-* Setting up actionable responses to overspending (like stopping services)
-AWS Cost Explorer:
-* For analyzing historical spending patterns
-* When you need detailed cost analysis and trends
-* Investigating specific cost spikes or anomalies
-* Creating spending forecasts based on past usage
-* Breaking down costs by service, region, or tags
-
-
-Q: Define AWS Control Tower, Mandatory Controls, Strongly Recommended Controls, Recommended Controls, Elective Controls:
-AWS Control Tower is a service that automates the setup of a secure, compliant, multi-account AWS environment using pre-configured controls and best practices for security and governance.
-
-Mandatory Controls:
-* Cannot be disabled
-* Automatically enabled when setting up Control Tower
-* Essential for establishing baseline security and governance
-* Example: Enable CloudTrail logging in all regions
-Strongly Recommended Controls:
-* Highly advised but can be disabled
-* Best practices for security and compliance
-* Automatically enabled during setup but can be turned off
-* Example: Enforce MFA for root user access
-Recommended Controls:
-* Optional but suggested controls
-* Based on common security and governance needs
-* Must be manually enabled
-* Example: Restrict access to root user
-Elective Controls:
-* Optional, specialized controls
-* Enabled based on specific organizational needs
-* Most flexible and customizable
-* Example: Restrict EC2 instance types to specific choices
-
-Q: Visibility timeout 
-A: 
-prevents message duplication and race conditions in distributed systems.
- a period during which Amazon SQS prevents other consumers from receiving and processing a given message
-You cannot use visibility timeout to postpone the delivery of certain messages to the queue by one minute.
-
-Q: Active Directory 
-A: Microsoft directory service that stores and manages information about network resources (like users, computers, and printers) and provides authentication and authorization services in a Windows domain network.
-
-————————————————————————
-Cloudhub
-Quicksight 
-
-Transit Virtual Gateway - connect to resources in a VPC using a Transit Gateway 
-VPC Interface Endpoint can be accessed through Private VIF
-
-Gateway VPC endpoints provide reliable connectivity to Amazon S3 and DynamoDB without requiring an internet gateway or a NAT device for your VPC
-
-Gateway endpoints. 
-- Create a gateway endpoint to send traffic to Amazon S3 or DynamoDB using private IP addresses. You route traffic from your VPC to the gateway endpoint using route tables. Gateway endpoints do not enable AWS PrivateLink
-
-* Interface VPC endpoints  
-    * network interface (ENI) with a private IP address that serves as an entry point for traffic destined to a supported AWS service
-
-* GatewayLoadBalancer VPC endpoints.  
-    * Gateway Load Balancer endpoint use route tables. The Gateway Load Balancer distributes traffic to the virtual appliances and can scale with demand.
+EventBridge: Routes events to AWS services, schedules actions, archives events
+EventBridge Pipes: Simplifies producer-consumer integration
+EventBridge Scheduler: Manages millions of scheduled tasks
+Step Functions: Orchestrates multiple AWS services into workflows
 
 
 
+Analytics & Database
 
-* Autoscaling’s scaling activity versus rebalancing activity
-* the scaling activity of Auto Scaling works in a different sequence compared to the rebalancing activity. Auto Scaling creates a new scaling activity for terminating the unhealthy instance and then terminates it. Later, another scaling activity launches a new instance to replace the terminated instance.
-    * They are reversed
+Analytics:
+
+Amazon Athena: Interactive query service for S3 data using SQL
+Kinesis Data Streams: Real-time custom processing with sub-second latency
+Kinesis Firehose: Load streaming data into destinations with auto scaling
 
 
-.
+Database High Availability:
 
-
-AWS Config Resources - 
-View compliance of a resource over time
-View configuration of a resource over time
-View CloudTrail API calls if enabled (view who made the changes)
-
-AWS Config Rules
-Can use AWS managed config rules (over 75)
-Can make custom config rules (must be defined in AWS lambda)
-* Evaluate if each EBS disk of type go2
-* Evaluate if each EC2 instance is t2.micro
-Rules can be evaluated / triggered:
-* For each config change
-* And / or : at regular time intervals
-Trigger Amazon Event bridge if the rule is non compliant (chain with lambda)
-Rules can have auto remediations through SSM Automations
-* If a resource is non complaint, you can trigger an auto remediation using SSM Automation
-* Ex. remediate security group rules, stop instances with non approved tags
+Aurora Global Database: For global applications with cross-region low latency
+Aurora Read Replicas: For scaling read operations (asynchronous)
+Aurora Multi-AZ: For high availability within a region (synchronous)
 
 
 
-Host affinity - Software licensing based on physical cores
+Cost Management
 
+AWS Budgets: For proactive cost controls and alerts
+Cost Explorer: For analyzing historical spending patterns
 
+Miscellaneous
 
+Route 53 Resolver: Resolves DNS queries in VPC and on-premises network
+AWS Outposts: AWS infrastructure and services for on-premises locations
+Host Affinity: Software licensing based on physical cores
